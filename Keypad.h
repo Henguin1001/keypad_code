@@ -1,5 +1,7 @@
 #ifndef Keypad_h
 #define Keypad_h
+#include <Arduino.h>
+#include "Wire.h"
 
 // keyboard Constants
 #define KEYBOARD_ADDRESS 0x34
@@ -23,6 +25,8 @@
 #define KEYBOARD_CODE_RIGHT_SPACE 44
 #define KEYBOARD_CODE_UNUSED 42
 
+#define KEYBOARD_SPACE_TIMEOUT 400
+
 // configuration commands (configures the 5x10 matrix as inputs with pullups, interrupts ...
 // For more information look at the code in the repo linked above
 const uint8_t KEYBOARD_CONFIG_COMMANDS[] = {0x1D,0x1F,0x1E,0xFF,0x1F,0x03,0x01,0xB9,0x02,0x0F};
@@ -35,10 +39,24 @@ const char KEYBOARD_LABELS[] = {
   '#',  'z',  'x',  'c',  'v',  'b',  'n',  'm',  '^',  '*',
   '&',  '?',  ' ',  ' ',  '!','!',  '<',  ',',  '>'
 };
+const uint8_t KEYBOARD_CONTROL_CHARACTERS[] = {
+  0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,5,
+  7,0,0,0,0,0,0,0,1,6,
+  8,6,10,11,12,9,2,3,4
+};
 
 // Declare our functions before use
 void keyboard_configure(void);
 void keyboard_clearFlag(void);
-uint8_t keyboard_getState(void);
+void keyboard_ISR(void);
+void keyboard_tick(void);
 
+void keyboard_keydown_event(uint8_t key);
+void keyboard_keyup_event(uint8_t key);
+void keyboard_control_event(uint8_t code);
+void keyboard_character_event(uint8_t key);
+
+uint8_t keyboard_getState(void);
 #endif
