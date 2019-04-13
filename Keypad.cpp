@@ -95,20 +95,20 @@ void keyboard_keyup_event(uint8_t key){
   }
 }
 void keyboard_control_event(uint8_t code){
-  Serial.print("Control:");
-  Serial.println(KEYBOARD_CONTROL_CHARACTERS[code]);
-  Serial.println(code);
+  // Serial.print("Control:");
+  // Serial.println(KEYBOARD_CONTROL_CHARACTERS[code]);
+  // Serial.println(code);
 }
 void keyboard_character_event(uint8_t key){
   // Change case and special character depending on shift and alt
-  if(shiftDown){
-    Serial.print("Shift:");
-  } else if(altDown) {
-    Serial.print("Alt:");
-  } else {
-    Serial.print("None:");
-  }
-  Serial.println(key);
+  // if(shiftDown){
+  //   Serial.print("Shift:");
+  // } else if(altDown) {
+  //   Serial.print("Alt:");
+  // } else {
+  //   Serial.print("None:");
+  // }
+  // Serial.println(key);
 }
 
 
